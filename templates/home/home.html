@@ -74,19 +74,19 @@
 
 
             <div class="col-lg-9  px-4 mb-5">
-                <!--
+                
                 <form>
                 <div class="row mt-3">
                     <div class="col-md-4">
-                    <div class="form-inline">
-                        <label class="" for="exampleFormControlSelect1">Sort by</label>
-                        <select class="form-control" name="sort_by" id="exampleFormControlSelect1">
-                            <option value="">Recommended</option>
-                            <option {% if sort_by == 'ASC' %} selected {%endif %} value="ASC">ASC</option>
+                        <div class="form-inline">
+                            <label class="" for="exampleFormControlSelect1">Sort by</label>
+                            <select class="form-control" name="sort_by" id="exampleFormControlSelect1">
+                                <option value="">Recommended</option>
+                                <option {% if sort_by == 'ASC' %} selected {%endif %} value="ASC">ASC</option>
                             <option {% if sort_by == 'DSC' %} selected {%endif %} value="DSC">DSC</option>
                            
                         </select>
-                    </div>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-inline">
@@ -97,13 +97,15 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-inline">
-                           <label class="" for="exampleFormControlSelect1">Amenities</label>
+                           <label class="" for="exampleFormControlSelect1">Facilidades</label>
                             <select name="amenities" class="form-control" multiple>
-                            <option value="">Choose</option>
-                            {% for amenities_obj in amenities_objs %}
-                            <option {% if amenities_obj.amenity_name in amenities  %} selected {%endif%}value="{{amenities_obj.amenity_name}}">{{amenities_obj.amenity_name}}</option>
-                                {% endfor %}
-                        </select>
+                                <option value="">Escolha</option>
+                                    {% for facilidade in facilidades %}
+                                        <option {% if facilidade.facilidade_nome in facilidades  %}
+                                        selected {%endif%}value="{{amenities_obj.amenity_name}}">
+                                        {{facilidade.facilidade_nome}}</option>
+                                    {% endfor %}
+                            </select>
                         </div>
 
                     </div>
@@ -113,28 +115,29 @@
                         </div>
                 </div>
                 </form>
-                -->
                 
-                {% for hotels_obj in hotels_objs %}
+                
+                {% for hotel in hotels %}
                 <div class="row search-card-result">
                     <div class="col-md-3">
-                       <!--
-                        <a href="/hotel-detail/{{hotels_obj.uid}}">
-                            <img class="img-fluid" src="/media/{{hotels_obj.images.first.images}}" alt="Card image cap">
+                       
+                        <a href="">
+                            <img class="img-fluid" src="/media/{{hotel.imagens.first.imagem}}"
+                             alt="Card image cap">
                         
                         </a>
-                        -->
+                        
                     </div>
                
                     <div class="col-md-5">
-                        <h5>{{hotels_obj.hotel_name}}</h5>
+                        <h5>{{hotel.hotel_nome}}</h5>
                         
                         <p>
-                            {{hotels_obj.description|truncatechars:150}}
+                            {{hotel.descricao|truncatechars:150}}
                         </p>
                         <p>
-                            {%for amenitie in hotels_obj.amenities.all %}
-                            <b>{{amenitie.amenity_name}}</b>,
+                            {%for facilidade in hotel.facidades.all %}
+                            <b>{{facilidade.facilidade_nome}}</b>,
                             {% endfor %}
                         </p>
                         
@@ -142,9 +145,9 @@
                     <div class="col-md-2 border-left text-center more-offers">
                         
                         <p>Place.com</p>
-                        <p>${{hotels_obj.hotel_price}}</p>
-                        <p>Room count</p>
-                        <p>{{hotels_obj.room_count}}</p>
+                        <p>${{hotel.hotel_preco}}</p>
+                        <p>Quantidade de quartos</p>
+                        <p>{{hotel.qtd_quartos}}</p>
                     </div>
                     <div class="col-md-2 border-left text-center more-offers">
                        
