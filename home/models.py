@@ -41,3 +41,6 @@ class HotelReserva(BaseModelo):
     tipo_de_reserva= models.CharField(max_length=100,
                                       choices=(('Pre Pagamento' , 'Pre Pagamento') ,
                                                ('Pos Pagamento' , 'Pos Pagamento')))
+    
+    def __str__(self):
+        return 'Hotel: '+str(self.hotel)+' para cliente: '+str(self.user.username)

@@ -33,7 +33,7 @@
 <section class="search-container mb-5 pb-5">
     <div class="container">
         <div class="row">
-            <!--
+            
             <div class="col-lg-3">
                 <div class="row my-3">
                     
@@ -70,7 +70,7 @@
 
                 </div>
             </div>
-            -->
+            
 
 
             <div class="col-lg-9  px-4 mb-5">
@@ -83,9 +83,9 @@
                             <select class="form-control" name="sort_by" id="exampleFormControlSelect1">
                                 <option value="">Recommended</option>
                                 <option {% if sort_by == 'ASC' %} selected {%endif %} value="ASC">ASC</option>
-                            <option {% if sort_by == 'DSC' %} selected {%endif %} value="DSC">DSC</option>
+                                <option {% if sort_by == 'DSC' %} selected {%endif %} value="DSC">DSC</option>
                            
-                        </select>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -98,11 +98,11 @@
                     <div class="col-md-4">
                         <div class="form-inline">
                            <label class="" for="exampleFormControlSelect1">Facilidades</label>
-                            <select name="amenities" class="form-control" multiple>
+                            <select name="facil" class="form-control" multiple>
                                 <option value="">Escolha</option>
                                     {% for facilidade in facilidades %}
                                         <option {% if facilidade.facilidade_nome in facilidades  %}
-                                        selected {%endif%}value="{{amenities_obj.amenity_name}}">
+                                        selected {%endif%}value="{{facilidade.facilidade_nome}}">
                                         {{facilidade.facilidade_nome}}</option>
                                     {% endfor %}
                             </select>
@@ -121,7 +121,7 @@
                 <div class="row search-card-result">
                     <div class="col-md-3">
                        
-                        <a href="">
+                        <a href="{% url 'hotel_detail' hotel.uid %}">
                             <img class="img-fluid" src="/media/{{hotel.imagens.first.imagem}}"
                              alt="Card image cap">
                         
@@ -136,7 +136,7 @@
                             {{hotel.descricao|truncatechars:150}}
                         </p>
                         <p>
-                            {%for facilidade in hotel.facidades.all %}
+                            {%for facilidade in hotel.facilidades.all %}
                             <b>{{facilidade.facilidade_nome}}</b>,
                             {% endfor %}
                         </p>

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block start %}
+<div class="container mt-5 pt-5">
+    <div class="row search-card-result">
+                
+
+                    
+        <div class="col-md-3">
+           
+        <a href="">
+            <img class="img-fluid" src="/media/{{hotel.imagens.first.imagem}}" alt="Card image cap">
+        
+        </a></div>
+   
+        <div class="col-md-5">
+            <h5>{{hotel.hotel_nome}}</h5>
+            
+            <p>
+                {{hotel.descricao|truncatechars:150}}
+            </p>
+            <p>
+                {%for facilidade in hotel.facilidades.all %}
+                <b>{{facilidade.facilidade_nome}}</b>,
+                {% endfor %}
+            </p>
+            
+        </div>
+        <div class="col-md-2 border-left text-center more-offers">
+            
+            <p>Place.com</p>
+            <p>${{hotel.hotel_preco}}</p>
+            <p>Quantidade de Quartos</p>
+            <p>{{hotel.qtd_quartos}}</p>
+        </div>
+        <div class="col-md-2 border-left text-center more-offers">
+           
+            <div class="btn btn-success">View deal </div>
+        </div>
+    </div>
+    <div class="row">
+        {% for img in hotel.imagens.all %}
+        <div class="col-md-3">
+            <img src="/media/{{img.imagem}}" style="height: 150px ; width:150px">
+        </div>
+        {% endfor %}
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="filter-card">
+        <h5>Book Hotel</h5>
+        {% include "home/messages.html" %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <label for="mintopay">Check in</label>
+                    <p>
+                        <input type="date" name="checkin" id="checkin" class="form-control">
+                    </p>
+                </div>
+                <div class="col-md-12">
+                    <label for="maxtopay">Check out</label>
+                    <p>
+                        <input type="date" name="checkout" id="checkout" class="form-control">
+                    </p>
+                </div>
+            </div>
+           
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <input type="submit" class="btn btn-primary btn-block" value="Book">
+                </div>
+            </div>
+        </form>
+    </div>
+    {% else %}
+
+    <a href="" class="btn btn-primary mt-5 ">Login</a>
+    {% endif %}
+</div>
+{% endblock start %}
